@@ -1,0 +1,34 @@
+/**
+ * Fetch and log a request
+ * @param {Request} request
+ */
+async function handleRequest(request) {
+
+  let url = new URL(request.url)
+
+  if (url.host === 'fxclub-global.com') {
+    url.host = 'fxclub-global.com.s3-website-eu-west-1.amazonaws.com'
+    url.protocol = "http"
+    return fetch(url, request)
+  }
+
+  if (url.host === 'marketingpartnersltd.com') {
+    url.host = 'marketingpartnersltd.com.s3-website-eu-west-1.amazonaws.com'
+    url.protocol = "http"
+    return fetch(url, request)
+  }
+
+  if (url.host === 'investing.by') {
+    url.host = 'investing.by.s3-website-eu-west-1.amazonaws.com'
+    url.protocol = "http"
+    return fetch(url, request)
+  }
+
+  if (url.host === 'mt4web.forexclub.biz') {
+    url.host = 'mt4web.forexclub.biz.s3-website-eu-west-1.amazonaws.com'
+    url.protocol = "http"
+    return fetch(url, request)
+  } 
+
+}
+

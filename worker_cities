@@ -1,0 +1,37 @@
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+/** ITOPSBL-1364
+ * const ORIGIN = "https://branchmedia-qa.fxclub.org"
+ */
+
+
+const ORIGIN = "https://branchmedia.fxclub.org"
+
+/**
+ * Fetch and log a request
+ * @param {Request} request
+ */
+async function handleRequest(request) {
+  const parsedUrl = new URL(request.url)
+  var name = parsedUrl.host.split(".")[0]
+  var REDIRECT_PATH = ${ORIGIN}/branches/${name}
+  if (parsedUrl.host === 'dnipro.fxclub.org') {
+    var REDIRECT_PATH = ${ORIGIN}/branches/dnepr
+  }
+  if (parsedUrl.host === 'hmelnickyi.fxclub.org') {
+    var REDIRECT_PATH = ${ORIGIN}/branches/khmelnitskiy
+  }
+  if (parsedUrl.host === 'nursultan.fxclub.org') {
+    var REDIRECT_PATH = ${ORIGIN}/branches/astana
+  }
+  if (parsedUrl.pathname.startsWith("/static/")) {
+    return fetch(${ORIGIN}${parsedUrl.pathname})
+  }
+  return fetch(${REDIRECT_PATH}${parsedUrl.pathname})
+}
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
